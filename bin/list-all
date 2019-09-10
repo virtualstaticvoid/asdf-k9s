@@ -28,5 +28,5 @@ fi
 
 # fetch all tag names
 # want just the version numbers, no "v" in front
-versions=$(eval $cmd | jq -r '.[].tag_name' | cut -c2- | sort_versions)
+versions=$(eval $cmd | jq -r '.[].tag_name' | sort_versions)
 echo $versions
