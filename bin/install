@@ -40,7 +40,7 @@ get_download_url() {
   local platform=$(get_platform)
   local arch=$(get_arch)
 
-  echo "https://github.com/derailed/k9s/releases/download/${version}/k9s_0.8.4_${platform}_${arch}.tar.gz"
+  echo "https://github.com/derailed/k9s/releases/download/${version}/k9s_${version}_${platform}_${arch}.tar.gz"
 }
 
 install_plugin "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
