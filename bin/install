@@ -35,12 +35,19 @@ get_arch() {
 
 get_download_url() {
   local install_type=$1
+  local tag=$2
   local version=$2
+
+  # releases after 0.1.12 changed tag/version convention
+  # the tag contains "v*" whereas the file download does not
+  if [[ "$version" == v* ]]; then
+    version=${version:1} # remove leading "v"
+  fi
 
   local platform=$(get_platform)
   local arch=$(get_arch)
 
-  echo "https://github.com/derailed/k9s/releases/download/${version}/k9s_${version}_${platform}_${arch}.tar.gz"
+  echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${version}_${platform}_${arch}.tar.gz"
 }
 
 install_plugin "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
