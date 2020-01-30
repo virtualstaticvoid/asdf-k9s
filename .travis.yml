@@ -1,6 +1,6 @@
 language: c
 
-script: asdf plugin-test k9s https://github.com/virtualstaticvoid/asdf-k9s.git --asdf-tool-version v0.13.6
+script: asdf plugin-test k9s $TRAVIS_BUILD_DIR --asdf-tool-version v0.13.6
 
 before_script:
   - git clone --branch master --depth=1 https://github.com/asdf-vm/asdf.git asdf
