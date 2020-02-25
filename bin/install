@@ -36,7 +36,7 @@ get_download_url() {
   local tag=$1
   local version=$1
 
-  # releases after 0.1.12 changed tag/version convention
+  # releases from 0.13.0 changed tag/version convention
   # the tag contains "v*" whereas the file download does not
   if [[ "$version" == v* ]]; then
     version=${version:1} # remove leading "v"
@@ -45,7 +45,12 @@ get_download_url() {
   local platform=$(get_platform)
   local arch=$(get_arch)
 
-  echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${version}_${platform}_${arch}.tar.gz"
+  # releases from 0.14.0 do not have version in the binary
+  if [ "$(printf '%s\n' "0.14.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
+    echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${platform}_${arch}.tar.gz"
+  else
+    echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${version}_${platform}_${arch}.tar.gz"
+  fi
 }
 
 install_plugin "$ASDF_INSTALL_TYPE" "$ASDF_INSTALL_VERSION" "$ASDF_INSTALL_PATH"
