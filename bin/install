@@ -9,17 +9,16 @@ ASDF_INSTALL_TYPE=${ASDF_INSTALL_TYPE:-version}
 [ -n "$ASDF_INSTALL_PATH" ] || (>&2 echo 'Missing ASDF_INSTALL_PATH' && exit 1)
 
 install_plugin() {
-  local install_type=$1
   local version=$2
   local install_path=$3
-  local download_url="$(get_download_url $install_type $version)"
+  local download_url="$(get_download_url $version)"
   local tmp_download_file=$(mktemp)
 
   local bin_install_path="$install_path/bin"
   mkdir -p "${bin_install_path}"
 
   echo "Downloading k9s from $download_url"
-  curl -L -s "$download_url" -o "$tmp_download_file"
+  curl -sL "$download_url" -o "$tmp_download_file"
   pushd $bin_install_path > /dev/null
   tar zxf "$tmp_download_file" || exit 1
   popd > /dev/null
@@ -34,9 +33,8 @@ get_arch() {
 }
 
 get_download_url() {
-  local install_type=$1
-  local tag=$2
-  local version=$2
+  local tag=$1
+  local version=$1
 
   # releases after 0.1.12 changed tag/version convention
   # the tag contains "v*" whereas the file download does not
