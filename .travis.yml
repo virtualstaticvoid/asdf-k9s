@@ -1,19 +1,16 @@
 language: c
 
-script: asdf plugin-test k9s $TRAVIS_BUILD_DIR --asdf-tool-version v0.13.6
-
-before_script:
-  - git clone --branch master --depth=1 https://github.com/asdf-vm/asdf.git asdf
-  - source asdf/asdf.sh
-
 os:
   - linux
   - osx
 
-addons:
-  apt:
-    packages:
-    - jq
+before_script:
+  - git clone --branch master --depth=1 https://github.com/asdf-vm/asdf.git asdf
+  - source asdf/asdf.sh
+  # workaround: asdf plugin-test assumes master branch
+  - cd $TRAVIS_BUILD_DIR && git checkout -b master || echo 'Aleady on master'
 
-before_install:
-  - if [ $TRAVIS_OS_NAME = osx ]; then brew update && brew install jq; fi
+script:
+  - asdf plugin-test k9s $TRAVIS_BUILD_DIR --asdf-tool-version 0.12.0
+  - asdf plugin-test k9s $TRAVIS_BUILD_DIR --asdf-tool-version v0.13.0
+  - asdf plugin-test k9s $TRAVIS_BUILD_DIR --asdf-tool-version v0.14.0
