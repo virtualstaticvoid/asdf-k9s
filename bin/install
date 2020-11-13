@@ -46,6 +46,15 @@ get_download_url() {
 
   # releases from 0.14.0 do not have version in the binary
   if [ "$(printf '%s\n' "0.14.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
+
+    # HACK: asdf wants numeric version numbers, but tags most start with a "v"
+    # since people usually tag releases in GitHub with a vX.X.X and _not_ X.X.X
+    # so need to prefix version based on this fragile logic :-/
+    # ignore tags is in some other format such as FOOBAR.X.X.X
+    if [[ "$tag" =~ ^[0-9] ]]; then
+      tag="v${tag}"
+    fi
+
     echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${platform}_${arch}.tar.gz"
   else
     echo "https://github.com/derailed/k9s/releases/download/${tag}/k9s_${version}_${platform}_${arch}.tar.gz"
