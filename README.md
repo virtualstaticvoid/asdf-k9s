@@ -8,6 +8,7 @@
 
 ```
 asdf plugin-add k9s https://github.com/virtualstaticvoid/asdf-k9s.git
+asdf install k9s latest
 ```
 
 ## Use
