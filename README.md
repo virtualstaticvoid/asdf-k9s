@@ -1,6 +1,6 @@
 # asdf-k9s
 
-[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/virtualstaticvoid/asdf-k9s/Main%20Workflow?style=flat-square)](https://github.com/virtualstaticvoid/asdf-k9s/actions)
+[![Main Workflow](https://github.com/virtualstaticvoid/asdf-k9s/actions/workflows/workflow.yml/badge.svg)](https://github.com/virtualstaticvoid/asdf-k9s/actions/workflows/workflow.yml)
 
 [`k9s`][util] plugin for [asdf](https://github.com/asdf-vm/asdf) version manager.
 
