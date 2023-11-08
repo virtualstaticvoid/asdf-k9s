@@ -60,6 +60,13 @@ get_download_url() {
     version=${version:1} # remove leading "v"
   fi
 
+  # releases from 0.27.0 use amd64 for architecture
+  # https://github.com/derailed/k9s/pull/1910
+  if [ "$(printf '%s\n' "0.27.0" "$version" | sort -rV | head -n1)" = "$version" ] &&
+      [ "$arch" == "x86_64" ]; then
+    arch="amd64"
+  fi
+
   # releases from 0.14.0 do not have version in the binary
   if [ "$(printf '%s\n' "0.14.0" "$version" | sort -rV | head -n1)" = "$version" ]; then
 
